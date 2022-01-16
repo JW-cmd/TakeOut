@@ -7,6 +7,8 @@ import Profile from '../pages/Profile/Profile.vue'
 import Search from '../pages/Search/Search.vue'
 import Login from '../pages/Login/Login.vue'
 import ShopInfo from '../pages/ShopInfo/ShopInfo.vue'
+import Message from '../pages/Meaasge.vue'
+import Password from '../pages/Password/Password.vue'
 
 
 export default new VueRouter ({
@@ -49,9 +51,20 @@ export default new VueRouter ({
 	{
 		path:'/login',
 		component:Login,
-		meta:{
-
-		}
+		children:[
+			{
+				path:'',
+				redirect:'message',
+			},
+			{
+				path:'message',
+				component:Message,
+			},
+			{
+				path:'password',
+				component:Password,
+			}
+		]
 	},
 	{
 		path:'/shopinfo',
