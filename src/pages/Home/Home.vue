@@ -1,7 +1,7 @@
 <template>
   <section class="msite">
     <!--首页头部-->
-    <TakeOutTop title="湖南省常德市湖南文理学院">
+    <TakeOutTop :title="address">
       <span class="header_search" slot="left">
         <i class="iconfont icon-sousuo"></i>
       </span>
@@ -26,13 +26,29 @@
 import HomeSlipeshow from '../../components/HomeSlipeshow/HomeSlipeshow.vue'
 import ShopList from '../../components/ShopList/ShopList.vue'
 import TakeOutTop from '../../components/TakeOutTop.vue'
+import {mapActions,mapState} from 'vuex' 
 export default {
     name:'Home',
     components:{
       TakeOutTop,
         HomeSlipeshow,
         ShopList,
-    }
+    },
+    methods:{
+      ...mapActions(
+        'homeAbout',
+        ['receive_location',]
+        )
+    },
+    mounted(){
+      // home组件一挂载好就发请求
+      this.receive_location()
+    },
+    computed:{
+      ...mapState('homeAbout',
+      ['address',]
+      )
+    },
 }
 </script>
 
@@ -40,42 +56,14 @@ export default {
   @import '../../commen/mixins.styl'
   .msite  //首页
     width 100%
-    .msite_nav
-      bottom-border-1px(#e4e4e4)
-      margin-top 45px
-      height 200px
-      background #fff
-      .swiper-container
-        width 100%
-        height 100%
-        .swiper-wrapper
-          width 100%
-          height 100%
-          .swiper-slide
-            display flex
-            justify-content center
-            align-items flex-start
-            flex-wrap wrap
-            .link_to_food
-              width 25%
-              .food_container
-                display block
-                width 100%
-                text-align center
-                padding-bottom 10px
-                font-size 0
-                img
-                  display inline-block
-                  width 50px
-                  height 50px
-              span
-                display block
-                width 100%
-                text-align center
-                font-size 13px
-                color #666
-        .swiper-pagination
-          >span.swiper-pagination-bullet-active
-            background #02a774
-        
+    height 95%
+    overflow auto
+    .msite_header
+      background-color #02a774
+      position relative
+      z-index 100
+      left 0
+      top 0
+      width 100%
+      height 45px
 </style>

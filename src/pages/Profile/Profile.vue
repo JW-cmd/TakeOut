@@ -4,8 +4,8 @@
         <take-out-top title="我的"></take-out-top>
         
         <section class="profile-number">
-          <a href="javascript:" class="profile-link">
-            <div class="profile_image">
+          <a href="javascript:" class="profile-link" @click="goTo('/login')">
+            <div class="profile_image" @click.stop="changeAvater()">
               <i class="iconfont icon-person"></i>
             </div>
             <div class="user-info">
@@ -98,7 +98,16 @@
 import TakeOutTop from '../../components/TakeOutTop.vue'
 export default {
   components: { TakeOutTop },
-    name:'Profile',
+  name:'Profile',
+  methods:{
+    goTo(path){
+      this.$router.push(path)
+    },
+    // 一个换头像的函数
+    changeAvater(){
+
+    },
+  }
 }
 </script>
 
@@ -179,6 +188,7 @@ export default {
               color #f90
               font-weight 700
               line-height 30px
+              margin-right 5px
           .info_data_bottom
             display inline-block
             font-size 14px
