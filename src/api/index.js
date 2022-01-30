@@ -15,6 +15,8 @@ export const getShopList = (latitude,longitude)=>ajax(BaseUrl+'/shops',{latitude
 // 获取一次性验证码
 // 用户名密码登陆
 // 发送短信验证码
+export const sendMsgCode = (phone)=>ajax(BaseUrl+'/sendcode',{phone})
 // 手机号验证码登陆
+export const isTureCode = (phone,code)=>ajax(BaseUrl+'/login_sms',{phone,code},'POST')
 // 根据会话获取用户信息
 // 用户登出

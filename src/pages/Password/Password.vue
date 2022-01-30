@@ -1,6 +1,5 @@
 <template>
     <div>
-        <section>
         <section class="login_message">
             <input type="tel" maxlength="11" placeholder="手机/邮箱/用户名">
         </section>
@@ -15,7 +14,7 @@
             <input type="text" maxlength="11" placeholder="验证码">
             <img class="get_verification" src="./images/captcha.svg" alt="captcha">
         </section>
-        </section>
+        <button class="login_submit" @click.prevent="login()">登录</button>
     </div>
 </template>
 

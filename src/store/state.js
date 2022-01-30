@@ -30,5 +30,5 @@ export const Profile = {
 
 // 登录数据
 export const Login = {
-    
+    user:{},
 }

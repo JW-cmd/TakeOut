@@ -33,5 +33,7 @@ export const profileMutation = {
 
 // login页面
 export const loginMutation = {
-    
+    RECEIVE_USER(state,user){
+        state.user = user
+    }
 }
