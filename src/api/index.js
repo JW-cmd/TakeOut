@@ -12,11 +12,13 @@ export const getFoodCategroy = ()=>ajax(BaseUrl+'/index_category')
 // 根据经纬度获取商铺列表,经纬度由getLocationByIp中的返回值决定
 export const getShopList = (latitude,longitude)=>ajax(BaseUrl+'/shops',{latitude,longitude})
 // 根据经纬度和关键字搜索商铺列表
-// 获取一次性验证码
 // 用户名密码登陆
+export const loginByPwd = (name,pwd,captcha)=>ajax(BaseUrl+'/login_pwd',{name,pwd,captcha},'POST')
 // 发送短信验证码
 export const sendMsgCode = (phone)=>ajax(BaseUrl+'/sendcode',{phone})
 // 手机号验证码登陆
 export const isTureCode = (phone,code)=>ajax(BaseUrl+'/login_sms',{phone,code},'POST')
 // 根据会话获取用户信息
+export const loginByLocal = ()=>ajax(BaseUrl+'/userinfo')
 // 用户登出
+export const logout = ()=>ajax(BaseUrl+'/logout')

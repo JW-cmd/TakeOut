@@ -3,7 +3,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import {comment,Home,Login} from './state'
 import {homeMutation,loginMutation} from './mutations'
-import {homeAction,} from './actions'
+import {homeAction,loginAction} from './actions'
 import {homeGetter,} from './getters'
 
 Vue.use(Vuex)
@@ -40,7 +40,9 @@ const homeAbout = {
 
 const loginAbout = {
     namespaced:true,
-    actions:{},
+    actions:{
+        ...loginAction,
+    },
     mutations:{
         ...loginMutation,
     },

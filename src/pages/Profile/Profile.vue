@@ -9,12 +9,12 @@
               <i class="iconfont icon-person"></i>
             </div>
             <div class="user-info">
-              <p class="user-info-top">登录/注册</p>
+              <p class="user-info-top" v-if="!user.phone">{{user.name || '登录/注册'}}</p>
               <p>
                 <span class="user-icon">
-                  <i class="iconfont icon-shouji icon-mobile"></i>
+                  <i class="iconfont icon-shouji icon-mobile" :style="{verticalAlign : user.phone?'middle':'text-top'}"></i>
                 </span>
-                <span class="icon-mobile-number" style="margin-left:10px;">暂无绑定手机号</span>
+                <span class="icon-mobile-number" :class="{'havePhone':user.phone}" style="margin-left:10px;">{{user.phone || '暂无绑定手机号'}}</span>
               </p>
             </div>
             <span class="arrow">
@@ -90,15 +90,28 @@
             </div>
           </a>
         </section>
+        <van-button 
+          type="danger" size="large" block 
+          style="width:92%;margin:20px auto;"
+          @click="logout()"
+        >退出登录</van-button>
       </section>
     </div>
 </template>
 
 <script>
 import TakeOutTop from '../../components/TakeOutTop.vue'
+import {mapState} from 'vuex'
+import { Dialog,Button } from 'vant'
 export default {
-  components: { TakeOutTop },
+  components: { TakeOutTop,
+    [Dialog.Component.name]: Dialog.Component,
+    [Button.name] :Button ,
+  },
   name:'Profile',
+  computed:{
+    ...mapState('loginAbout',['user'])
+  },
   methods:{
     goTo(path){
       this.$router.push(path)
@@ -106,6 +119,18 @@ export default {
     // 一个换头像的函数
     changeAvater(){
 
+    },
+    // 登出函数
+    logout(){
+      Dialog.confirm({
+        message: "确定退出登录吗？",
+        })
+        .then(() => {
+          // 发请求退出登录，清除vuex中的user数据
+          this.$store.dispatch('loginAbout/logout')
+        },()=>{
+          console.log('用户取消了操作')
+        })
     },
   }
 }
@@ -151,10 +176,13 @@ export default {
               height 20px
               .icon-mobile
                 font-size 30px
-                vertical-align text-top
             .icon-mobile-number
               font-size 14px
               color #fff
+            .havePhone
+              display inline-block 
+              margin-top 12px
+              font-size 20px
         .arrow
           width 12px
           height 12px

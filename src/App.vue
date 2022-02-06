@@ -13,6 +13,9 @@ export default {
   components: {
     FooterGuide,
   },
+  mounted(){
+    this.$store.dispatch('loginAbout/get_logined_user')
+  }
 }
 </script>
 

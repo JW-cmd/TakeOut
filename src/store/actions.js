@@ -5,6 +5,8 @@ import {
     getLocationByIp,
     getFoodCategroy,
     getShopList,
+    loginByLocal,
+    logout,
 } from '../api/index'
 
 // home页面
@@ -65,5 +67,18 @@ export const profileAction = {
 
 // login页面
 export const loginAction = {
-    
+    // 异步自动登录,获取数据给vuex中的user赋值
+    async get_logined_user({commit}){
+        const userInfo = await loginByLocal()
+        if(userInfo.code===0){
+            commit('RECEIVE_USER',userInfo.data)
+        }
+    },
+    async logout({commit}){
+        const userInfo = await logout()
+        if(userInfo.code === 0){
+            commit('RESET_USER')
+        }
+    },
+
 }

@@ -35,5 +35,8 @@ export const profileMutation = {
 export const loginMutation = {
     RECEIVE_USER(state,user){
         state.user = user
-    }
+    },
+    RESET_USER(state){
+        state.user = {}
+    },
 }

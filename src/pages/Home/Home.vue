@@ -3,10 +3,11 @@
     <!--首页头部-->
     <TakeOutTop :title="address">
       <span class="header_search" slot="left">
-        <i class="iconfont icon-sousuo"></i>
+        <i class="iconfont icon-sousuo" @click="$router.replace('/search')"></i>
       </span>
       <span class="header_login" slot="right">
-        <span class="header_login_text">登录|注册</span>
+        <span class="header_login_text" v-if="!user._id">登录 | 注册</span>
+        <van-icon name="manager" size="25" v-else/>
       </span>
     </TakeOutTop>
     <!--首页导航（轮播图）-->
@@ -27,12 +28,14 @@ import HomeSlipeshow from '../../components/HomeSlipeshow/HomeSlipeshow.vue'
 import ShopList from '../../components/ShopList/ShopList.vue'
 import TakeOutTop from '../../components/TakeOutTop.vue'
 import {mapActions,mapState} from 'vuex' 
+import {Icon} from 'vant'
 export default {
     name:'Home',
     components:{
       TakeOutTop,
-        HomeSlipeshow,
-        ShopList,
+      HomeSlipeshow,
+      ShopList,
+      [Icon.name] : Icon,
     },
     methods:{
       ...mapActions(
@@ -45,9 +48,8 @@ export default {
       this.receive_location()
     },
     computed:{
-      ...mapState('homeAbout',
-      ['address',]
-      )
+      ...mapState('homeAbout',['address',]),
+      ...mapState('loginAbout',['user',])
     },
 }
 </script>

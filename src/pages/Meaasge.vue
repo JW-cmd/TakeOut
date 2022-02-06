@@ -80,11 +80,18 @@ export default {
                             })
             }
             isTureCode(this.phone,this.code).then(value=>{
-                if(value.code !== 0) return Toast.fail({
+                if(value.code !== 0){
+                    //清空输入框  
+                    this.phone = ''
+                    this.code = ''
+                    return Toast.fail({
                             message:value.msg,
                             position:'bottom'
                             })
+                } 
                 this.$store.commit('loginAbout/RECEIVE_USER',value.data)
+                // 跳转路由
+                this.$router.replace('/profile')
             })
       },
     }
