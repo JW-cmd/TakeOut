@@ -40,3 +40,16 @@ export const loginMutation = {
         state.user = {}
     },
 }
+
+// shop页面
+export const shopMutation = {
+    REQ_SHOP_GOODS(state,goods){
+        state.goods = goods
+    },
+    REQ_SHOP_RATING(state,rating){
+        state.rating = rating
+    },
+    REQ_SHOP_INFO(state,info){
+        state.info = info
+    },
+}

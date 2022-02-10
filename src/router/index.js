@@ -6,9 +6,13 @@ import Order from '../pages/Order/Order.vue'
 import Profile from '../pages/Profile/Profile.vue'
 import Search from '../pages/Search/Search.vue'
 import Login from '../pages/Login/Login.vue'
-import ShopInfo from '../pages/ShopInfo/ShopInfo.vue'
+import Shop from '../pages/Shop/Shop.vue'
 import Message from '../pages/Meaasge.vue'
 import Password from '../pages/Password/Password.vue'
+import ShopGoods from '../pages/Shop/ShopGoods/ShopGoods.vue'
+import ShopRating from '../pages/Shop/ShopRating/ShopRating.vue'
+import ShopInfo from '../pages/Shop/ShopInfo/ShopInfo.vue'
+
 
 
 export default new VueRouter ({
@@ -67,11 +71,29 @@ export default new VueRouter ({
 		]
 	},
 	{
-		path:'/shopinfo',
-		component:ShopInfo,
+		path:'/shop',
+		component:Shop,
 		meta:{
 			
-		}
+		},
+		children:[
+			{
+				path:'',
+				redirect:'shopGoods',
+			},
+			{
+				path:'shopGoods',
+				component:ShopGoods,
+			},
+			{
+				path:'shopRating',
+				component:ShopRating,
+			},
+			{
+				path:'shopInfo',
+				component:ShopInfo,
+			}
+		]
 	},
 	]
 })

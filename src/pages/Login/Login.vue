@@ -39,6 +39,8 @@ export default {
 
 <style lang="stylus" rel="stylesheet/stylus" >
   @import "../../commen/mixins.styl"
+  .off 
+    height 100%
   .loginContainer
     width 100%
     height 100%

@@ -7,6 +7,9 @@ import {
     getShopList,
     loginByLocal,
     logout,
+    reqShopGoods,
+    reqShopRating,
+    reqShopInfo,
 } from '../api/index'
 
 // home页面
@@ -81,4 +84,26 @@ export const loginAction = {
         }
     },
 
+}
+
+// shop页面
+export const shopAction = {
+    async req_shop_goods({commit}){
+        const goods = await reqShopGoods()
+        if(goods.code===0){
+            commit('REQ_SHOP_GOODS',goods.data)
+        }
+    },
+    async req_shop_rating({commit}){
+        const rating = await reqShopRating()
+        if(rating.code===0){
+            commit('REQ_SHOP_RATING',rating.data)
+        }
+    },
+    async req_shop_info({commit}){
+        const info = await reqShopInfo()
+        if(info.code===0){
+            commit('REQ_SHOP_INFO',info.data)
+        }
+    },
 }

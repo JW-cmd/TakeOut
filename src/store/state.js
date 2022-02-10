@@ -32,3 +32,10 @@ export const Profile = {
 export const Login = {
     user:{},
 }
+
+// 每个商铺的数据
+export const Shop = {
+    goods:[],
+    info:{},
+    rating:[],
+}

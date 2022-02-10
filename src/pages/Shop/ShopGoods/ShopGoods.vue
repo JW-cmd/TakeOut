@@ -1,12 +1,12 @@
 <template>
-  <div>
-      
-  </div>
+    <div>
+        ShopGoods 组件
+    </div>
 </template>
 
 <script>
 export default {
-    name:'ShopInfo',
+    name:'ShopGoods',
 }
 </script>
 
