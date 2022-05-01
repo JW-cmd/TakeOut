@@ -20,7 +20,21 @@ export const profileGetter = {
     
 }
 
-// login页面
-export const loginGetter = {
-    
+// shop页面
+export const shopGetter = {
+    cartCount(state){
+      // Array.reduce(累加器（函数），初始化值)
+        // 累加器：
+        // (累加结果, 当前值(数组遍历中的当前项), 当前索引)=>{
+        // 	return 处理结果
+        // }
+        return state.cartFoods.reduce((sum,food)=>{
+          return sum + food.count
+        },0)
+    },
+    cartPrice(state){
+      return state.cartFoods.reduce((sum,food)=>{
+          return sum + food.count * food.price
+        },0)
+    }
 }

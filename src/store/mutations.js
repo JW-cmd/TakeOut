@@ -1,5 +1,7 @@
 // 所有操作数据的方法
 
+import Vue from "vue"
+
 // home页面
 export const homeMutation ={
     RECEIVE_LOCATION(state,location){
@@ -52,4 +54,26 @@ export const shopMutation = {
     REQ_SHOP_INFO(state,info){
         state.info = info
     },
+    getShop(state,shop){
+      state.shop = shop
+    },
+    ADDFOOD(state,food){
+      if(!food.count){
+        Vue.set(food,'count',1)
+        state.cartFoods.push(food)
+      }
+      else
+        food.count++
+    },
+    MINUSFOOD(state,food){
+      if(food.count){
+        food.count--
+
+        if(food.count === 0){
+          // 移出cartFoods
+          state.cartFoods.splice(state.cartFoods.indexOf(food),1)
+        }
+      }
+        
+    }
 }

@@ -30,12 +30,16 @@ export const Profile = {
 
 // 登录数据
 export const Login = {
-    user:{},
+    user:{
+      login:false,
+    },
 }
 
 // 每个商铺的数据
 export const Shop = {
     goods:[],
+    shop:{},
     info:{},
     rating:[],
+    cartFoods:[]//购物车中的食物列表
 }

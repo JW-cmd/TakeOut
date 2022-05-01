@@ -5,7 +5,7 @@
       <span class="header_search" slot="left">
         <i class="iconfont icon-sousuo" @click="$router.replace('/search')"></i>
       </span>
-      <span class="header_login" slot="right">
+      <span class="header_login" slot="right" @click="$router.push('/login')">
         <span class="header_login_text" v-if="!user._id">登录 | 注册</span>
         <van-icon name="manager" size="25" v-else/>
       </span>

@@ -4,7 +4,7 @@ import Vuex from 'vuex'
 import {comment,Home,Login,Shop} from './state'
 import {homeMutation,loginMutation,shopMutation} from './mutations'
 import {homeAction,loginAction,shopAction} from './actions'
-import {homeGetter,} from './getters'
+import {homeGetter,shopGetter} from './getters'
 
 Vue.use(Vuex)
 
@@ -23,6 +23,7 @@ const homeAbout = {
     },
     getters:{
         ...homeGetter,
+        ...shopGetter,
     },
 }
 
@@ -63,7 +64,9 @@ const shopAbout = {
     state:{
         ...Shop,
     },
-    getters:{},
+    getters:{
+      ...shopGetter,
+    },
 }
 
 

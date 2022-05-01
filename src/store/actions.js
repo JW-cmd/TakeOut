@@ -88,11 +88,13 @@ export const loginAction = {
 
 // shop页面
 export const shopAction = {
-    async req_shop_goods({commit}){
+    async req_shop_goods({commit},callback){
         const goods = await reqShopGoods()
         if(goods.code===0){
             commit('REQ_SHOP_GOODS',goods.data)
         }
+        // 先确定有没有传回调，没有的话callback是undefined，对应false，这样就不会执行callback函数了
+        callback && callback()
     },
     async req_shop_rating({commit}){
         const rating = await reqShopRating()
@@ -106,4 +108,16 @@ export const shopAction = {
             commit('REQ_SHOP_INFO',info.data)
         }
     },
+    // 清空购物车，同步请求
+    cleanCartAll({state}){
+      // 首先将food中count数量置为0(这里cartFoods相当于是一个存储着很多指向不同food的地址的变量)
+      state.cartFoods.forEach(food=>{
+        // 通过引用修改真实变量的值，所有引用的地方值都会改变
+        food.count = 0
+      })
+
+      // 然后将cartFoods初始化
+      state.cartFoods = []
+    },
+
 }
