@@ -4,92 +4,85 @@
     <div class="ratings-content">
       <div class="overview">
         <div class="overview-left">
-          <h1 class="score">4.7</h1>
+          <h1 class="score">{{info.score}}</h1>
           <div class="title">综合评分</div>
           <div class="rank">高于周边商家 99%</div>
         </div>
         <div class="overview-right">
           <div class="score-wrapper">
             <span class="title">服务态度</span>
-            <Star :score="4.6"
-                  :size="36" />
-            <span class="score">4.6</span>
+            <Star :score="info.serviceScore"
+                  :size="24" />
+            <span class="score">{{info.serviceScore}}</span>
           </div>
           <div class="score-wrapper">
             <span class="title">商品评分</span>
-            <Star :score="4.7"
-                  :size="36" />
-            <span class="score">4.7</span>
+            <Star :score="info.foodScore"
+                  :size="24" />
+            <span class="score">{{info.foodScore}}</span>
           </div>
           <div class="delivery-wrapper">
             <span class="title">送达时间</span>
-            <span class="delivery">30 分钟</span>
+            <span class="delivery">{{shop.order_lead_time}}钟</span>
           </div>
         </div>
       </div>
       <div class="split"></div>
       <div class="ratingselect">
         <div class="rating-type border-1px">
-          <span class="block positive active">
-            全部<span class="count">30</span>
+          <span class="block positive "
+                :class="{active:selectType===2}"
+                @click="changeSelectType(2)">
+            全部<span class="count">{{rating.length}}</span>
           </span>
-          <span class="block positive">
-            满意<span class="count">28</span>
+          <span class="block positive"
+                :class="{active:selectType===0}"
+                @click="changeSelectType(0)">
+            满意<span class="count">{{positiveSize}}</span>
           </span>
-          <span class="block negative">
-            不满意<span class="count">2</span>
+          <span class="block negative"
+                :class="{active:selectType===1}"
+                @click="changeSelectType(1)">
+            不满意<span class="count">{{rating.length - positiveSize}}</span>
           </span>
         </div>
-        <div class="switch on">
+        <div class="switch "
+             :class="{on:isOnlyContent}"
+             @click="showContent">
           <span class="iconfont icon-check_circle"></span>
           <span class="text">只看有内容的评价</span>
         </div>
       </div>
       <div class="rating-wrapper">
         <ul>
-          <li class="rating-item">
+          <li class="rating-item"
+              v-for="(item,index) in filterRatings"
+              :key="index">
             <div class="avatar">
               <img width="28"
                    height="28"
-                   src="http://static.galileo.xiaojukeji.com/static/tms/default_header.png">
+                   :src="item.avatar">
             </div>
             <div class="content">
-              <h1 class="name">aa</h1>
+              <h1 class="name">{{item.username}}</h1>
               <div class="star-wrapper">
-                <Star :score="5"
+                <Star :score="item.score"
                       :size="24" />
-                <span class="delivery">30</span>
+                <span class="delivery"
+                      v-if="item.deliveryTime">配送时间：{{item.deliveryTime}}分钟</span>
               </div>
-              <p class="text">不错</p>
+              <p class="text">{{item.text}}</p>
               <div class="recommend">
-                <span class="iconfont icon-thumb_up"></span>
-                <span class="item">南瓜粥</span>
-                <span class="item">皮蛋瘦肉粥</span>
-                <span class="item">扁豆焖面</span>
+                <span class="iconfont"
+                      :class="item.rateType === 0?'icon-thumb_up':'icon-thumb_down'"></span>
+                <span class="item"
+                      v-for="(rec,recIndex) in item.recommend"
+                      :key="recIndex">{{rec}}</span>
               </div>
-              <div class="time">2016-07-23 21:52:44</div>
+              <div class="time">{{item.rateTime}}</div>
             </div>
           </li>
-          <li class="rating-item">
-            <div class="avatar">
-              <img width="28"
-                   height="28"
-                   src="http://static.galileo.xiaojukeji.com/static/tms/default_header.png">
-            </div>
-            <div class="content">
-              <h1 class="name">aa</h1>
-              <div class="star-wrapper">
-                <Star :score="4"
-                      :size="24" />
-                <span class="delivery">30</span>
-              </div>
-              <p class="text">不错</p>
-              <div class="recommend">
-                <span class="iconfont icon-thumb_down"></span>
-              </div>
-              <div class="time">2016-07-23 21:52:44</div>
-            </div>
-          </li>
+
         </ul>
       </div>
     </div>
@@ -98,9 +91,62 @@
 
 <script>
 import Star from '../../../components/Star/Star.vue'
+import BScroll from '@better-scroll/core'
+import { mapState } from 'vuex'
 export default {
   name: 'ShopRating',
   components: { Star },
+  data () {
+    return {
+      isOnlyContent: true,//是否只展示有内容的评价
+      selectType: 2,//默认选择类型：0-满意  1-不满意  2-全部
+      scroll: ''
+    }
+  },
+  computed: {
+    ...mapState('shopAbout', ['rating', 'info', 'shop']),
+    //过滤后的评论列表
+    filterRatings () {
+      return this.rating.filter(item => {
+        return (this.selectType === 2 || item.rateType === this.selectType) && (!this.isOnlyContent || item.text.length > 0)
+      })
+    },
+    positiveSize () {
+      let temp = 0
+      this.rating.forEach(item => {
+        if (item.rateType === 0) temp++
+      })
+      return temp
+    }
+  },
+  methods: {
+    changeSelectType (type) {
+      this.selectType = type
+    },
+    showContent () {
+      this.isOnlyContent = !this.isOnlyContent
+    }
+  },
+  watch: {
+    filterRatings () {
+      // 默认只展示有内容的平论，点了后会展示无内容的评论，导致ul变高，要重新刷新
+      // 要写成$nextTick的原因：因为filterRatings依赖rating，当rating异步请求完成后，可能还没来得及创建Bscroll对象，就已经被监视到了，
+      // 此时this.scroll还是无效值，更没有refresh函数，此时调用会报错，所以要等数据更新完后再调用
+      this.$nextTick(() => {
+        this.scroll.refresh()
+      })
+    }
+  },
+  mounted () {
+    this.$store.dispatch('shopAbout/req_shop_rating', () => {
+      // 要等actions中的数据请求完成后才创建滑动对象
+      this.$nextTick(() => {
+        this.scroll = new BScroll(this.$refs.ratings, {
+          click: true
+        })
+      })
+    })
+  },
 }
 </script>
 
@@ -112,7 +158,7 @@ export default {
   bottom 0
   left 0
   width 100%
-  overflow auto
+  overflow hidden
   background #fff
   .overview
     display flex
@@ -196,7 +242,7 @@ export default {
         color rgb(77, 85, 93)
         background rgba(77, 85, 93, 0.2)
         &.active
-          background $green
+          background #009272
           color #fff
         .count
           margin-left 2px
@@ -209,7 +255,7 @@ export default {
       font-size 0
       &.on
         .icon-check_circle
-          color $green
+          color #009272
       .icon-check_circle
         display inline-block
         vertical-align top

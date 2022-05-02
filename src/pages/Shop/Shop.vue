@@ -29,9 +29,6 @@ export default {
   components: {
     ShopHeader,
   },
-  mounted () {
-    this.$store.dispatch('shopAbout/req_shop_rating')
-  },
 }
 </script>
 

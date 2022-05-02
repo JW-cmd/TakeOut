@@ -75,5 +75,15 @@ export const shopMutation = {
         }
       }
         
-    }
+    },
+    CLEAN_CART_ALL(state){
+       // 首先将food中count数量置为0(这里cartFoods相当于是一个存储着很多指向不同food的地址的变量)
+      state.cartFoods.forEach(food=>{
+        // 通过引用修改真实变量的值，所有引用的地方值都会改变
+        food.count = 0
+      })
+
+      // 然后将cartFoods初始化
+      state.cartFoods = []
+    },
 }

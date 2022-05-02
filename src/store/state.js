@@ -41,5 +41,6 @@ export const Shop = {
     shop:{},
     info:{},
     rating:[],
-    cartFoods:[]//购物车中的食物列表
+    cartFoods:[],//购物车中的食物列表
+    
 }
