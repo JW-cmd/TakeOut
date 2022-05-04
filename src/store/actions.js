@@ -10,6 +10,7 @@ import {
     reqShopGoods,
     reqShopRating,
     reqShopInfo,
+    reqSearchShop,
 } from '../api/index'
 
 // home页面
@@ -55,17 +56,14 @@ export const homeAction ={
 
 // search页面
 export const searchAction = {
-
-}
-
-// order页面
-export const orderAction = {
-    
-}
-
-// profile页面
-export const profileAction = {
-    
+  async req_search_data({commit} ,keyword){
+    const geohash = "40.10038" + ',' + "116.36867"
+    const searchedData = await reqSearchShop(geohash, keyword)
+        if(searchedData.code===0){
+            console.log(searchedData)
+            commit('REQ_SEARCH_DATA',searchedData.data)
+        }
+  }
 }
 
 // login页面
@@ -114,5 +112,6 @@ export const shopAction = {
     cleanCartAll({commit}){
       commit('CLEAN_CART_ALL')
     },
+    
 
 }

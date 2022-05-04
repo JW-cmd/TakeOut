@@ -1,9 +1,9 @@
 import Vue from 'vue'
 //导入vuex
 import Vuex from 'vuex'
-import {comment,Home,Login,Shop} from './state'
-import {homeMutation,loginMutation,shopMutation} from './mutations'
-import {homeAction,loginAction,shopAction} from './actions'
+import {comment,Home,Login,Shop,Search} from './state'
+import {homeMutation,loginMutation,shopMutation,searchMutation} from './mutations'
+import {homeAction,loginAction,shopAction,searchAction} from './actions'
 import {homeGetter,shopGetter} from './getters'
 
 Vue.use(Vuex)
@@ -27,17 +27,21 @@ const homeAbout = {
     },
 }
 
-// const personAbout = {
-//     namespaced:true,
-//     actions:{},
-//     mutations:{
-        
-//     },
-//     state:{
-        
-//     },
-//     getters:{},
-// }
+const searchAbout = {
+    namespaced:true,
+    actions:{
+      ...searchAction,
+    },
+    mutations:{
+      ...searchMutation,
+    },
+    state:{
+      ...comment,
+      ...Search,
+
+    },
+    getters:{},
+}
 
 const loginAbout = {
     namespaced:true,
@@ -76,6 +80,7 @@ export default new Vuex.Store({
         homeAbout,
         loginAbout,
         shopAbout,
+        searchAbout
     }
 })
 

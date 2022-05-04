@@ -20,17 +20,9 @@ export const homeMutation ={
 
 // search页面
 export const searchMutation = {
-
-}
-
-// order页面
-export const orderMutation = {
-    
-}
-
-// profile页面
-export const profileMutation = {
-    
+  REQ_SEARCH_DATA(state,searchedData){
+    state.searchedData = searchedData
+  }
 }
 
 // login页面

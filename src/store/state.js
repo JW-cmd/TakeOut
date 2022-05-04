@@ -15,17 +15,7 @@ export const Home = {
 
 // 搜索业面所需数据
 export const Search = {
-
-}
-
-// 订单页面所需数据
-export const Order = {
-
-}
-
-// 个人中心数据
-export const Profile = {
-
+  searchedData: [],//搜索出来的数据
 }
 
 // 登录数据

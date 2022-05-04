@@ -10,7 +10,7 @@ export const getFoodCategroy = ()=>ajax(BaseUrl+'/index_category')
 // 根据经纬度获取商铺列表,经纬度由getLocationByIp中的返回值决定
 export const getShopList = (latitude,longitude)=>ajax(BaseUrl+'/shops',{latitude,longitude})
 // 根据经纬度和关键字搜索商铺列表
-
+export const reqSearchShop = (geohash, keyword) => ajax(BaseUrl+'/search_shops', {geohash, keyword})
 // 用户名密码登陆
 export const loginByPwd = (name,pwd,captcha)=>ajax(BaseUrl+'/login_pwd',{name,pwd,captcha},'POST')
 // 发送短信验证码

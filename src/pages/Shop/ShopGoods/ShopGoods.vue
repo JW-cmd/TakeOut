@@ -152,8 +152,6 @@ export default {
         this.scrollY = Math.abs(y.y)
       })
 
-      // 给左侧分类列表绑定点击事件
-
     },
     // 收集每个食物栏的top值
     _getTopList () {
@@ -173,7 +171,7 @@ export default {
       this.topList = tops
       // console.log(this.topList)
     },
-
+    // 给左侧分类列表绑定点击事件
     handleClick (index) {
       // 拿到对应的top值,赋给scrollY
       const top = - this.topList[index]//因为要判断方向，所以有正负，往上滑，值为负
