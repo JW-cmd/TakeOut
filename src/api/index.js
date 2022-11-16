@@ -1,9 +1,10 @@
 // 封装所有的请求方法(导出的都是函数)
 import ajax from "./ajax"
+// http://192.168.38.1:4000
+// const BaseUrl = 'http://192.168.38.1:4000'
 const BaseUrl = 'api'
 
-
-// 根据ip获取位置详情
+// 根据ip获取位置详情http://api.map.baidu.com
 export const getLocationByIp = ()=>ajax('/baidumap/location/ip',{ak:'9ZELAiPwcu3KTRAfvGFan2E8Tw5wcAYZ',coor:'bd0911'})
 // 获取食品分类列表
 export const getFoodCategroy = ()=>ajax(BaseUrl+'/index_category')
